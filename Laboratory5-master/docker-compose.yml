@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+
+  # Builds database image and runs as container: cmpt310_db
+  db:
+    build: ./db
+    platform: linux/x86_64
+
+    # Port for MySQL Database System
+    ports:
+      - "3306:3306"
+
+    # Environment variables to access the database
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=TRUE
+      - MYSQL_USER=cmpt310
+      - TZ=America/Edmonton
+      - MYSQL_DATABASE=Lab5
+      - LANG=en_CA.UTF-8
+
+      # YOU NEED TO SET THIS PASSWORD (you can use pwgen)
+      - MYSQL_PASSWORD=REPLACE_ME
+
+    volumes:
+      - ./src/sql:/sql-initdb.d
+
+    # Database container name
+    container_name: cmpt310_db
